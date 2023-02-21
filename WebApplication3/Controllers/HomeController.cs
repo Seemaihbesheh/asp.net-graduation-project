@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
+using WebApplication3.DBContext;
 using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
@@ -15,6 +17,14 @@ namespace WebApplication3.Controllers
 
         public IActionResult Index()
         {
+            /* using (DataContext db = new DataContext())
+             {
+                 var list =db.Users.ToList();
+                 return View(list);
+
+
+             }
+           */
             return View();
         }
 

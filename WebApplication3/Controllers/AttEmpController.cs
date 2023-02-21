@@ -28,6 +28,19 @@ namespace WebApplication3.Controllers
         }
 
 
+        [HttpPost("Search}")]
+
+        public async Task<IActionResult> Search()
+
+        {
+
+            var data = _context.Users.ToList();
+
+            return Ok(data);
+
+
+        }
+
 
         [HttpGet("Search/{id}")]
 
@@ -35,7 +48,7 @@ namespace WebApplication3.Controllers
 
         {
 
-            var data = _context.User.Where(x=>x.Id==id).ToList();
+            var data = _context.Users.Where(x=>x.Id==id).ToList();
 
             return Ok(data);
             

@@ -7,11 +7,26 @@ namespace WebApplication3.DBContext
 {
     public class User
     {
-      //  [Key]
+        [Key]
         public int Id { get; set; }
-   //     [Column("PrductName", TypeName = "Varchar(200)")]
-        public string Name { get; set; }
+       [Column("First_Name", TypeName = "Varchar(200)")]
+        public string  First_Name { get; set; }
+        [Column("Last_Name", TypeName = "Varchar(200)")]
+
+        public string Last_Name { get; set; }
+
 
         public int phoneNumber { get; set; }
+
+        public string Email { get; set; }
+
+        public string password  { get; set; }
+
+
+
+
+
+
     }
+
 }
