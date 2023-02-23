@@ -19,5 +19,9 @@ namespace WebApplication3.DBContext
         public DbSet<Cv_Creat> Cv_Creats { get; set; }
 
         public DbSet<CV_upload> CV_uploads { get; set; }
+
+        public DbSet<CompanyAccount> CompanyAccounts { get; set; }
+
+        public DbSet<Company> Companys { get; set; }
     }
 }

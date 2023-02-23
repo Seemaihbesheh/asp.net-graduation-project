@@ -28,9 +28,9 @@ namespace WebApplication3.Controllers
         }
 
 
-        [HttpPost("Search}")]
+        //[HttpPost("Search}")]
 
-        public async Task<IActionResult> Search()
+      /*  public async Task<IActionResult> Search()
 
         {
 
@@ -56,7 +56,7 @@ namespace WebApplication3.Controllers
         }
 
 
-
+        */
 
 
     }
