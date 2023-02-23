@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication3.DBContext;
 
@@ -10,9 +11,11 @@ using WebApplication3.DBContext;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230223104450_seeeeeee")]
+    partial class seeeeeee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,30 +48,6 @@ namespace WebApplication3.Migrations
                     b.HasKey("id");
 
                     b.ToTable("CV_uploads");
-                });
-
-            modelBuilder.Entity("WebApplication3.DBContext.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Job_postId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("User_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("text")
-                        .IsRequired()
-                        .HasColumnType("Varchar(max)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WebApplication3.DBContext.Company", b =>
@@ -190,48 +169,6 @@ namespace WebApplication3.Migrations
                     b.ToTable("Cv_Creats");
                 });
 
-            modelBuilder.Entity("WebApplication3.DBContext.Jobs_Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Company_id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Job_Deadline")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Place")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pre_title")
-                        .IsRequired()
-                        .HasColumnType("Varchar(200)")
-                        .HasColumnName("Pre_title");
-
-                    b.Property<string>("Requrment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("Varchar(200)")
-                        .HasColumnName("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Jobs_Posts");
-                });
-
             modelBuilder.Entity("WebApplication3.DBContext.User", b =>
                 {
                     b.Property<int>("Id")
@@ -246,7 +183,7 @@ namespace WebApplication3.Migrations
 
                     b.Property<string>("First_Name")
                         .IsRequired()
-                        .HasColumnType("Varchar(Max)")
+                        .HasColumnType("Varchar(200)")
                         .HasColumnName("First_Name");
 
                     b.Property<string>("Last_Name")
