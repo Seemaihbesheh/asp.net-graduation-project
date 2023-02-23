@@ -23,5 +23,8 @@ namespace WebApplication3.DBContext
         public DbSet<CompanyAccount> CompanyAccounts { get; set; }
 
         public DbSet<Company> Companys { get; set; }
+        public DbSet<image_post> image_posts { get; set; }
+        
+        public DbSet<notifications> notificationss { get; set; }
     }
 }

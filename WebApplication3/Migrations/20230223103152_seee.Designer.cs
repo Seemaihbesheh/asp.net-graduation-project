@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication3.DBContext;
 
@@ -10,9 +11,11 @@ using WebApplication3.DBContext;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230223103152_seee")]
+    partial class seee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,27 +271,6 @@ namespace WebApplication3.Migrations
                     b.HasKey("id");
 
                     b.ToTable("image_posts");
-                });
-
-            modelBuilder.Entity("WebApplication3.DBContext.notifications", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("User_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("notificat_text")
-                        .IsRequired()
-                        .HasColumnType("Varchar(max)")
-                        .HasColumnName("notificat_text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("notificationss");
                 });
 #pragma warning restore 612, 618
         }
