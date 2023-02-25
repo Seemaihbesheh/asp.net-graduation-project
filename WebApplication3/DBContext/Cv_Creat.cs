@@ -26,8 +26,10 @@ namespace WebApplication3.DBContext
         public string Contact  { get; set; }
 
         public int ExperienceYear { get; set; }
-        public int User_id { get; set; }
-        
+        public int User_idCv_Creat { get; set; }
+        [ForeignKey("User_idCv_Creat")]
+        public User user { get; set; }
+
 
 
     }

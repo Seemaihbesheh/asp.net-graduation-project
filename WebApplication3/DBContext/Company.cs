@@ -9,7 +9,7 @@ namespace WebApplication3.DBContext
     {
 
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Column("Name", TypeName = "Varchar(200)")]
         public string Name { get; set; }

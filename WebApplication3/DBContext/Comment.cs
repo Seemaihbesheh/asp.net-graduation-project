@@ -9,13 +9,15 @@ namespace WebApplication3.DBContext
         [Key]
         public int Id { get; set; }
 
-        [Column("Name", TypeName = "Varchar(max)")]
+        [Column("text", TypeName = "Varchar(max)")]
         public string text { get; set; }
 
 
-        public int User_id { get; set; }
+        public int User_idComment { get; set; }
 
         public int Job_postId { get; set; }
+        [ForeignKey ("User_idComment")]
+        public User user { get; set; }
 
      
 

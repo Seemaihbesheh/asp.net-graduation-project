@@ -9,7 +9,7 @@ namespace WebApplication3.DBContext
     {
         [Key]
         public int Id { get; set; }
-       [Column("First_Name", TypeName = "Varchar(Max)")]
+        [Column("First_Name", TypeName = "Varchar(Max)")]
         public string  First_Name { get; set; }
         [Column("Last_Name", TypeName = "Varchar(200)")]
 
