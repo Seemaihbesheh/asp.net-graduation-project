@@ -58,26 +58,28 @@ namespace WebApplication3.Migrations
                     b.Property<int>("Job_postId")
                         .HasColumnType("int");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idComment")
                         .HasColumnType("int");
 
                     b.Property<string>("text")
                         .IsRequired()
                         .HasColumnType("Varchar(max)")
-                        .HasColumnName("Name");
+                        .HasColumnName("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("User_idComment");
 
                     b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WebApplication3.DBContext.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -95,7 +97,7 @@ namespace WebApplication3.Migrations
                     b.Property<int>("phoneNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Companys");
                 });
@@ -108,7 +110,7 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Company_id")
+                    b.Property<int>("Company_idAccount")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -138,6 +140,8 @@ namespace WebApplication3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Company_idAccount");
 
                     b.ToTable("CompanyAccounts");
                 });
@@ -182,10 +186,12 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idCv_Creat")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("User_idCv_Creat");
 
                     b.ToTable("Cv_Creats");
                 });
@@ -287,7 +293,7 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idAccount")
                         .HasColumnType("int");
 
                     b.Property<string>("bio")
@@ -304,6 +310,8 @@ namespace WebApplication3.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("User_idAccount");
 
                     b.ToTable("UserAccounts");
                 });
@@ -344,7 +352,7 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idnotifications")
                         .HasColumnType("int");
 
                     b.Property<string>("notificat_text")
@@ -354,7 +362,64 @@ namespace WebApplication3.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("User_idnotifications");
+
                     b.ToTable("notificationss");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Comment", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idComment")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.CompanyAccount", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "Company")
+                        .WithMany()
+                        .HasForeignKey("Company_idAccount")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Cv_Creat", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idCv_Creat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.UserAccount", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idAccount")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.notifications", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idnotifications")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

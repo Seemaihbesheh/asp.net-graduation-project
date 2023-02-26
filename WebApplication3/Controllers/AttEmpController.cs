@@ -30,33 +30,37 @@ namespace WebApplication3.Controllers
 
         //[HttpPost("Search}")]
 
-      /*  public async Task<IActionResult> Search()
+        /*  public async Task<IActionResult> Search()
 
-        {
+          {
 
-            var data = _context.Users.ToList();
+              var data = _context.Users.ToList();
 
-            return Ok(data);
+              return Ok(data);
 
 
-        }
+          }
+        */
 
 
         [HttpGet("Search/{id}")]
 
-        public async Task<IActionResult>Search(int id)
+        public async Task<IActionResult> Search(int id)
 
         {
 
-            var data = _context.Users.Where(x=>x.Id==id).ToList();
+            //var data = _context.Users.Where(x=>x.User_idAccount == id).ToList();
+            var data = from t1 in _context.Companys
+                       join t2 in _context.CompanyAccounts on t1.id equals t2.Company_idAccount
+                       select t1.Email;
 
+            //Console.WriteLine(data);
             return Ok(data);
-            
+
 
         }
 
 
-        */
 
 
     }

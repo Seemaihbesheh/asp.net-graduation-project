@@ -11,8 +11,8 @@ using WebApplication3.DBContext;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230223103152_seee")]
-    partial class seee
+    [Migration("20230225205355_q")]
+    partial class q
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,13 +50,39 @@ namespace WebApplication3.Migrations
                     b.ToTable("CV_uploads");
                 });
 
-            modelBuilder.Entity("WebApplication3.DBContext.Company", b =>
+            modelBuilder.Entity("WebApplication3.DBContext.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Job_postId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User_idComment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("text")
+                        .IsRequired()
+                        .HasColumnType("Varchar(max)")
+                        .HasColumnName("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User_idComment");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Company", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -74,7 +100,7 @@ namespace WebApplication3.Migrations
                     b.Property<int>("phoneNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Companys");
                 });
@@ -87,7 +113,7 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Company_id")
+                    b.Property<int>("Company_idAccount")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -117,6 +143,8 @@ namespace WebApplication3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Company_idAccount");
 
                     b.ToTable("CompanyAccounts");
                 });
@@ -161,12 +189,56 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idCv_Creat")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("User_idCv_Creat");
+
                     b.ToTable("Cv_Creats");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Jobs_Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Company_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Job_Deadline")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pre_title")
+                        .IsRequired()
+                        .HasColumnType("Varchar(200)")
+                        .HasColumnName("Pre_title");
+
+                    b.Property<string>("Requrment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("Varchar(200)")
+                        .HasColumnName("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Jobs_Posts");
                 });
 
             modelBuilder.Entity("WebApplication3.DBContext.User", b =>
@@ -183,7 +255,7 @@ namespace WebApplication3.Migrations
 
                     b.Property<string>("First_Name")
                         .IsRequired()
-                        .HasColumnType("Varchar(200)")
+                        .HasColumnType("Varchar(Max)")
                         .HasColumnName("First_Name");
 
                     b.Property<string>("Last_Name")
@@ -224,7 +296,7 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_idAccount")
                         .HasColumnType("int");
 
                     b.Property<string>("bio")
@@ -241,6 +313,8 @@ namespace WebApplication3.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("User_idAccount");
 
                     b.ToTable("UserAccounts");
                 });
@@ -271,6 +345,84 @@ namespace WebApplication3.Migrations
                     b.HasKey("id");
 
                     b.ToTable("image_posts");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.notifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("User_idnotifications")
+                        .HasColumnType("int");
+
+                    b.Property<string>("notificat_text")
+                        .IsRequired()
+                        .HasColumnType("Varchar(max)")
+                        .HasColumnName("notificat_text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User_idnotifications");
+
+                    b.ToTable("notificationss");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Comment", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idComment")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.CompanyAccount", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "Company")
+                        .WithMany()
+                        .HasForeignKey("Company_idAccount")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.Cv_Creat", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idCv_Creat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.UserAccount", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idAccount")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.notifications", b =>
+                {
+                    b.HasOne("WebApplication3.DBContext.User", "user")
+                        .WithMany()
+                        .HasForeignKey("User_idnotifications")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

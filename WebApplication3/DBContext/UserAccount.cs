@@ -26,8 +26,10 @@ namespace WebApplication3.DBContext
 
 
         public int  Experience { get; set; }
-        public int User_id { get; set; }
-    
+        public int User_idAccount { get; set; }
+        
+        [ForeignKey("User_idAccount")]
+        public User user { get; set; }
 
     }
 }
