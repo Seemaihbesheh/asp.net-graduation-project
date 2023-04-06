@@ -16,6 +16,6 @@ namespace WebApplication3.DBContext
         public string type { get; set; }
 
   
-        public int User_id{ get; set; }
+ 
     }
 }

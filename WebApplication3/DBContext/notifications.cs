@@ -12,7 +12,6 @@ namespace WebApplication3.DBContext
 
         public int User_idnotifications { get; set; }
 
-        [ForeignKey("User_idnotifications")]
-        public User user { get; set; }
+      
     }
 }

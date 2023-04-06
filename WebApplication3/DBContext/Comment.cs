@@ -16,8 +16,8 @@ namespace WebApplication3.DBContext
         public int User_idComment { get; set; }
 
         public int Job_postId { get; set; }
-        [ForeignKey ("User_idComment")]
-        public User user { get; set; }
+     
+      
 
      
 

@@ -13,14 +13,13 @@ namespace WebApplication3.DBContext
         }
 
 
-        public DbSet<User> Users { get; set; }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Cv_Creat> Cv_Creats { get; set; }
 
         public DbSet<CV_upload> CV_uploads { get; set; }
 
-       public DbSet<CompanyAccount> CompanyAccounts { get; set; }
+    //   public DbSet<CompanyAccount> CompanyAccounts { get; set; }
 
         public DbSet<Company> Companys { get; set; }
 
@@ -29,7 +28,26 @@ namespace WebApplication3.DBContext
         public DbSet<notifications> notificationss { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Jobs_Post> Jobs_Posts { get; set; }
+       
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<University> Universitys { get; set; }
+        public DbSet<student> students { get; set; }
+        public DbSet<pushJob> pushJobs { get; set; }
+        public DbSet<applyJob> applyJobs { get; set; }
+        public DbSet<cv> cvs { get; set; }
+    
+        public DbSet<userU> userUs { get; set; }
+        public  DbSet<TblSalesHeader> TblSalesHeaders { get; set; } = null!;
+
+
+        public DbSet<Product> Product { get; set; }
+
+        
+          public DbSet<Resume> Resumes { get; set; }
+
 
     }
 }
+
+
+

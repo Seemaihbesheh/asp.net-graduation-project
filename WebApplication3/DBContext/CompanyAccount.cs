@@ -32,9 +32,11 @@ namespace WebApplication3.DBContext
 
         //here list
         public string services { get; set; }
-
+        /*
         public int Company_idAccount { get; set; }
         [ForeignKey("Company_idAccount")]
         public User Company { get; set; }
+        */
     }
+
 }

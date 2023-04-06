@@ -27,8 +27,7 @@ namespace WebApplication3.DBContext
 
         public int ExperienceYear { get; set; }
         public int User_idCv_Creat { get; set; }
-        [ForeignKey("User_idCv_Creat")]
-        public User user { get; set; }
+       
 
 
 

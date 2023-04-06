@@ -16,8 +16,7 @@ namespace WebApplication3.DBContext
       
         public bool flag_image { get; set; }
 
-        public int User_id { get; set; }
-
+     
        
         public int image_id { get; set; }
     }
