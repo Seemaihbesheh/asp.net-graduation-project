@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WebApplication3.Models.DTO;
 using WebApplication3.Repository.Abastract;
 
@@ -8,24 +9,25 @@ namespace WebApplication3.Controllers
     [Route("forApplyjob")]
     public class forApplyjobController : Controller
     {
+        private IWebHostEnvironment _environment;
         private readonly IFileService _fileService;
         private readonly IProductRepository _productRepo;
         private readonly DataContext _context;
 
 
-
-        public forApplyjobController(IFileService fs, IProductRepository productRepo, DataContext context)
+        public forApplyjobController(IFileService fs, IProductRepository productRepo, DataContext context, IWebHostEnvironment environment)
         {
             _fileService = fs;
             _productRepo = productRepo;
             _context = context;
+            _environment = environment;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
+        
         public async Task<IActionResult> Search()
         {
             var data = _context.applyJobs.ToList();
@@ -40,6 +42,11 @@ namespace WebApplication3.Controllers
              {*/
             var data = _context.applyJobs.Include(x => x.pushJob).ToList();
 
+            // var path = GetFilePath();
+            var baseUri = $"{Request.Scheme}://{Request.Host}";
+
+            data.ForEach(t => t.ProductImage = Path.Combine(baseUri,"applyJobFileUploads", t.ProductImage));
+
             return Ok(data);
             //}
 
@@ -48,6 +55,8 @@ namespace WebApplication3.Controllers
                    throw ex;
                }*/
         }
+
+
 
         [HttpGet("GetpushJob")]
         public async Task<IActionResult> GetPushJob()
@@ -79,8 +88,14 @@ namespace WebApplication3.Controllers
                 if (fileResult.Item1 == 1)
                 {
                     model.ProductImage = fileResult.Item2; // getting name of image
+                    model.FileDisplayName = model.ImageFile.FileName;
+
+
+
+
                 }
                 var productResult = _productRepo.AddApplyJob(model);
+
                 if (productResult)
                 {
                     status.StatusCode = 1;
@@ -96,9 +111,33 @@ namespace WebApplication3.Controllers
             return Ok(status);
         }
 
+       
+
+        [HttpPost("jobs")]
+        public IActionResult PostData([FromBody] pushJob data)
+        {
+            try
+            {
+                // Add the received data to the database
+                _context.pushJobs.Add(data);
+                _context.SaveChanges();
+
+                // Return a success response
+                return Ok("Data added successfully to pushJob");
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
+
         public IActionResult GetAll()
         {
             return Ok(_productRepo.GetAllApplyJobs());
         }
+
     }
 }
+
+

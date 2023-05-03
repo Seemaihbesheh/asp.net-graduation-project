@@ -32,9 +32,31 @@ namespace WebApplication3.Repository.Implementaion
         }
 
 
-        
+        public bool AddUpdateaddmiinn(Admin category)
+        {
+            try
+            {
+                if (category.id == 0)
+                    _ctx.Admins.Add(category);
+                else
+                    _ctx.Admins.Update(category);
+                _ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
 
- public bool AddUpdateuser(userU category)
+                return false;
+            }
+        }
+
+
+
+
+     
+
+
+        public bool AddUpdateuser(userU category)
         {
             try
             {
@@ -52,6 +74,7 @@ namespace WebApplication3.Repository.Implementaion
             }
         }
 
+       
 
 
 
@@ -86,6 +109,18 @@ namespace WebApplication3.Repository.Implementaion
         {
             return _ctx.Companys.Find(id);
         }
+        public Admin GetByIdadmiiiin(int id)
+        {
+            return _ctx.Admins.Find(id);
+        }
+
+
+
+        public Admin GetadminById(int id)
+        {
+            return _ctx.Admins.Find(id);
+        }
+
 
         public userU GetuserById(int id)
         {

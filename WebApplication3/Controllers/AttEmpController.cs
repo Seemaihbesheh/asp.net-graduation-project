@@ -130,6 +130,24 @@ namespace WebApplication3.Controllers
 
 
 
+        [HttpPost("pushJobss")]
+        public IActionResult PostDatatopushJob([FromBody] pushJob data)
+        {
+            try
+            {
+                // Add the received data to the database
+                _context.pushJobs.Add(data);
+                _context.SaveChanges();
+
+                // Return a success response
+                return Ok("Data added successfully to  pushJob done");
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
 
 
 
@@ -172,7 +190,7 @@ namespace WebApplication3.Controllers
 
 
 
-        // GET: api/Companyy/5
+        // GET: api/Companyy/10
         [HttpGet("getcopmanyID/{id}")]
         public async Task<ActionResult<Company>> Getcompanyid(int id)
         {
@@ -189,6 +207,46 @@ namespace WebApplication3.Controllers
 
             return Companyy;
         }
+
+        [HttpGet("getadmminID/{id}")]
+        public async Task<ActionResult<Admin>> Getadmiinnnnid(int id)
+        {
+            if (_context.Admins == null)
+            {
+                return NotFound();
+            }
+            var Adminnn = await _context.Admins.FindAsync(id);
+
+            if (Adminnn == null)
+            {
+                return NotFound();
+            }
+
+            return Adminnn;
+        }
+
+
+       
+        [HttpGet("getadminID/{id}")]
+        public async Task<ActionResult<Admin>> Getadminid(int id)
+        {
+            if (_context.Admins == null)
+            {
+                return NotFound();
+            }
+            var Adminn = await _context.Admins.FindAsync(id);
+
+            if (Adminn == null)
+            {
+                return NotFound();
+            }
+
+            return Adminn;
+        }
+
+
+
+
 
 
         // GET: api/Companyy/5

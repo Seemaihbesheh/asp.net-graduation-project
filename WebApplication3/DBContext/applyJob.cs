@@ -21,11 +21,15 @@ namespace WebApplication3.DBContext
 
         public string? ProductImage { get; set; }
 
+        public string? FileDisplayName { get; set; }
+
         public int pushJobid { get; set; }
         public pushJob? pushJob { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+
+
 
 
 

@@ -13,6 +13,18 @@ namespace WebApplication3.DBContext
         }
 
 
+        // MessageDto
+        public DbSet<MessageDto> MessageDtos { get; set; }
+
+
+
+
+
+
+
+
+
+
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Cv_Creat> Cv_Creats { get; set; }
@@ -44,6 +56,7 @@ namespace WebApplication3.DBContext
 
         
           public DbSet<Resume> Resumes { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
 
     }

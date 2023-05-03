@@ -15,13 +15,7 @@ namespace WebApplication3.Repository.Implementaion
         {
             try
             {
-                var contentPath = this.environment.ContentRootPath;
-                // path = "c://projects/productminiapi/uploads" ,not exactly something like that
-                var path = Path.Combine(contentPath, "Uploads");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
+                var path = GetFilePath();
 
                 // Check the allowed extenstions
                 var ext = Path.GetExtension(imageFile.FileName);
@@ -31,19 +25,22 @@ namespace WebApplication3.Repository.Implementaion
                     string msg = string.Format("Only {0} extensions are allowed", string.Join(",", allowedExtensions));
                     return new Tuple<int, string>(0, msg);
                 }
-                string uniqueString = Guid.NewGuid().ToString();
+                string uniqueString = Guid.NewGuid().ToString()+"_"+imageFile.FileName;
+
                 // we are trying to create a unique filename here
-                var newFileName = uniqueString + ext;
-                var fileWithPath = Path.Combine(path, newFileName);
+                var fileWithPath = Path.Combine(path, uniqueString);
                 var stream = new FileStream(fileWithPath, FileMode.Create);
                 imageFile.CopyTo(stream);
                 stream.Close();
-                return new Tuple<int, string>(1, newFileName);
+
+                return new Tuple<int, string>(1, uniqueString);
             }
             catch (Exception ex)
             {
                 return new Tuple<int, string>(0, "Error has occured");
             }
+
+
         }
 
         public bool DeleteImage(string imageFileName)
@@ -51,7 +48,7 @@ namespace WebApplication3.Repository.Implementaion
             try
             {
                 var wwwPath = this.environment.WebRootPath;
-                var path = Path.Combine(wwwPath, "Uploads\\", imageFileName);
+                var path = Path.Combine(wwwPath, "applyjobFileUploads", imageFileName);
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
@@ -63,6 +60,18 @@ namespace WebApplication3.Repository.Implementaion
             {
                 return false;
             }
+        }
+
+        private string GetFilePath()
+        {
+            string wwwPath = this.environment.WebRootPath;
+
+            string path = Path.Combine(wwwPath, "applyjobFileUploads");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
         }
     }
 }

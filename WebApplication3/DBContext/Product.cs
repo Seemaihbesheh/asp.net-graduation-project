@@ -11,6 +11,7 @@ namespace WebApplication3.DBContext
         [Required]
         public string? ProductName { get; set; }
         public string? ProductImage { get; set; }
+        public string? FileDisplayName { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }

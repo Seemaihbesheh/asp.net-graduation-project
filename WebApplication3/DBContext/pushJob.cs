@@ -36,7 +36,7 @@ namespace WebApplication3.DBContext
 
 
       [IgnoreDataMember]
-       public ICollection<applyJob> applyJobs { get; set; }
+       public ICollection<applyJob>? applyJobs { get; set; }
 
 
 

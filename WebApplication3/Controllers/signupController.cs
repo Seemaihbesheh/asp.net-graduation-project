@@ -91,7 +91,7 @@ namespace WebApplication3.Controllers
                 return Ok(new
                 {
                     Token = userU.Token,
-                    Message = " done authenticion login sucess!"
+                    Message = " done authenticion login sucess for user!"
                 });
 
 
@@ -106,6 +106,38 @@ namespace WebApplication3.Controllers
         }
 
 
+        [HttpPost("authenticateCompany")]
+        public async Task<ActionResult> Authenticatecompany([FromBody] Company companyUobj)
+
+        {
+            try
+            {
+                if (companyUobj == null)
+                    return BadRequest();
+
+                var companyy = _context.Companys.FirstOrDefault(x => x.UserName == companyUobj.UserName && x.password == companyUobj.password);
+
+                if (companyy == null)
+                    return NotFound(new { Message = "User not found" });
+
+
+                companyy.Token = CreateJwtc(companyy);
+                return Ok(new
+                {
+                    Token = companyy.Token,
+                    Message = " done authenticion login sucesss for comapny!"
+                });
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
 
 
 
@@ -136,6 +168,33 @@ namespace WebApplication3.Controllers
             }
         }
 
+
+
+        [HttpPost("registercompany")]
+        public async Task<IActionResult> Registercompany([FromBody] Company companyobj)
+
+        {
+            try
+            {
+
+
+                if (companyobj == null)
+                    return BadRequest();
+
+
+                _context.Companys.Add(companyobj);
+
+                _context.SaveChanges();
+
+                // Return a success response
+                return Ok("Data added successfully in register company.");
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
 
 
 
@@ -181,7 +240,53 @@ namespace WebApplication3.Controllers
         }
 
 
-        
+
+
+
+        private string CreateJwtc(Company company)
+        {
+
+            var jwtTokenHanler = new JwtSecurityTokenHandler();
+
+
+            var key = Encoding.ASCII.GetBytes("verryySercrtttetee");
+
+
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+
+                new Claim(ClaimTypes.NameIdentifier, company.id.ToString()),
+
+                new Claim(ClaimTypes.Role ,company.Role),
+                new Claim(ClaimTypes.Name,company.UserName),
+                new Claim(ClaimTypes.Email ,company.Email),
+
+
+
+
+            });
+
+
+            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+            var tokenDecriptor = new SecurityTokenDescriptor
+            {
+
+                Subject = identity,
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = credentials
+
+            };
+
+
+            var token = jwtTokenHanler.CreateToken(tokenDecriptor);
+            return jwtTokenHanler.WriteToken(token);
+
+        }
+
+
+
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<userU>>> GetuserUs()
         {

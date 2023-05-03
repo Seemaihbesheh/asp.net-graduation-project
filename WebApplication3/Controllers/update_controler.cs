@@ -35,6 +35,24 @@ namespace WebApplication3.Controllers
         }
 
 
+        [HttpGet("getadmiiinnprofileid/{id}")]
+        public IActionResult GetByIdadmiiiin(int id)
+        {
+            var data = _categoryRepos.GetByIdadmiiiin(id);
+            return Ok(data);
+        }
+
+
+
+
+        [HttpGet("getadminprofileid/{id}")]
+        public IActionResult GetadminById(int id)
+        {
+            var data = _categoryRepos.GetById(id);
+            return Ok(data);
+        }
+
+
 
         [HttpGet("getuserprofileid/{id}")]
         public IActionResult GetuserById(int id)
@@ -46,7 +64,7 @@ namespace WebApplication3.Controllers
 
 
 
-
+        //for company
         [HttpPost("update")]
         public IActionResult AddUpdate(Company model)
         {
@@ -64,11 +82,26 @@ namespace WebApplication3.Controllers
         }
 
 
+        
+        [HttpPost("updateadmiiin")]
+        public IActionResult AddUpdateaddmiinn(Admin model)
+        {
+            var status = new Status();
+            if (!ModelState.IsValid)
+            {
+                status.StatusCode = 0;
+                status.Message = "Validatation failed";
+            }
+            var result = _categoryRepos.AddUpdateaddmiinn(model);
+
+            status.StatusCode = result ? 1 : 0;
+            status.Message = result ? "Saved successfully" : "Error has occured";
+            return Ok(status);
+        }
 
 
-  
 
-[HttpPost("updateuser")]
+        [HttpPost("updateuser")]
         public IActionResult AddUpdateuser(userU model)
         {
            // var status = new Status();
@@ -85,6 +118,10 @@ namespace WebApplication3.Controllers
         }
 
 
+      
+
+
+          
 
 
 

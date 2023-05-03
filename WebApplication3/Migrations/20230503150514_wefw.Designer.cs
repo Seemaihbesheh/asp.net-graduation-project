@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication3.DBContext;
 
@@ -11,9 +12,11 @@ using WebApplication3.DBContext;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230503150514_wefw")]
+    partial class wefw
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,49 +24,6 @@ namespace WebApplication3.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplication3.DBContext.Admin", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Languages")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("Varchar(200)")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("about")
-                        .IsRequired()
-                        .HasColumnType("Varchar(max)")
-                        .HasColumnName("about");
-
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("Varchar(max)")
-                        .HasColumnName("address");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("phoneNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("WebApplication3.DBContext.CV_upload", b =>
                 {
@@ -121,37 +81,37 @@ namespace WebApplication3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Varchar(200)")
-                        .HasColumnName("UserName");
+                        .HasColumnName("Name");
 
                     b.Property<string>("about")
+                        .IsRequired()
                         .HasColumnType("Varchar(max)")
                         .HasColumnName("about");
 
                     b.Property<string>("address")
+                        .IsRequired()
                         .HasColumnType("Varchar(max)")
                         .HasColumnName("address");
 
                     b.Property<string>("password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("phoneNumber")
+                    b.Property<int>("phoneNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("services_about")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("services_title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -222,27 +182,6 @@ namespace WebApplication3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
-                });
-
-            modelBuilder.Entity("WebApplication3.DBContext.MessageDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("msgText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("user")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MessageDtos");
                 });
 
             modelBuilder.Entity("WebApplication3.DBContext.Product", b =>
@@ -406,9 +345,6 @@ namespace WebApplication3.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileDisplayName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Full_Name")

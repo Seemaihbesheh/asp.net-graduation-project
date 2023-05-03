@@ -13,6 +13,7 @@ using WebApplication3.Models.Repository.Abastract;
 using WebApplication3.Models.Repository.Implementaion;
 using WebApplication3.UtilityService;
 using PdfSharp.Charting;
+using WebApplication3.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 });
+builder.Services.AddSignalR();
 
 
 builder.Services.AddCors(opt =>
@@ -70,6 +72,18 @@ builder.Services.AddAuthentication(x =>
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IProductRepository, ProductRepostory>();
 
@@ -111,6 +125,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+
+
+
+
+
+
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -124,6 +148,16 @@ app.UseCors("CorsPolicy");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/chatsocket");
+
+});
+//app.MapControllers();
 
 app.Run();
 
