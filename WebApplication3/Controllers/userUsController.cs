@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication3.DBContext;
 
 namespace WebApplication3.Controllers
@@ -119,6 +120,59 @@ namespace WebApplication3.Controllers
         {
             return (_context.userUs?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+
+
+       
+
+
+        [HttpGet("GetapplyJob/{searchValue}")]
+        public async Task<IActionResult> GetApplyJob(string? searchValue)
+        {
+            var search = searchValue?.ToLower();
+            var data = new List<applyJob>();
+            /* try
+             {*/
+            if (search.IsNullOrEmpty())
+            {
+                data = _context.applyJobs.Include(x => x.pushJob).ToList();
+            }
+            else
+            {
+                data = _context.applyJobs.Where(t =>
+                t.Full_Name.ToLower().Contains(search) ||
+                t.Email.ToLower().Contains(search) ||
+                t.City.ToLower().Contains(search) ||
+               (t.FileDisplayName != null && t.FileDisplayName.ToLower().Contains(search))
+              )
+
+    .Include(x => x.pushJob).ToList();
+
+            }
+
+            // var path = GetFilePath();
+            var baseUri = $"{Request.Scheme}://{Request.Host}";
+
+            data.ForEach(t => t.ProductImage = Path.Combine(baseUri, "applyJobFileUploads", t.ProductImage));
+
+            return Ok(data);
+            //}
+
+            /*   catch (Exception ex)
+               {
+                   throw ex;
+               }*/
+        }
+
+
+
+
+
+
+
+
     }
 }
 

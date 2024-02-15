@@ -17,15 +17,18 @@ namespace WebApplication3.DBContext
         public DbSet<MessageDto> MessageDtos { get; set; }
 
 
+        public DbSet<CommentPost> CommentPosts { get; set; }
 
 
+        
+        public DbSet<skill> skills { get; set; }
 
 
+        //postwithoutPhoto
+        public DbSet<postwithoutPhoto> postwithoutPhotos { get; set; }
+        public DbSet<project> projects { get; set; }
 
-
-
-
-
+        
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Cv_Creat> Cv_Creats { get; set; }
 
@@ -36,11 +39,14 @@ namespace WebApplication3.DBContext
         public DbSet<Company> Companys { get; set; }
 
         public DbSet<image_post> image_posts { get; set; }
-        
+
+        public DbSet<review> reviews { get; set; }
+
         public DbSet<notifications> notificationss { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
-       
+        //userrrrClass
+//public DbSet<userrrrClass> userrrrClasss { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<University> Universitys { get; set; }
         public DbSet<student> students { get; set; }
@@ -57,6 +63,13 @@ namespace WebApplication3.DBContext
         
           public DbSet<Resume> Resumes { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<userU>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+        }
+
 
 
     }

@@ -14,7 +14,10 @@ namespace WebApplication3.DBContext
         public string? FileDisplayName { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
+
+
+       
 
     }
 }

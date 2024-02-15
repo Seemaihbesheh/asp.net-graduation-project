@@ -28,7 +28,10 @@ namespace WebApplication3.DBContext
         public string Place { get; set; }
         public string Email { get; set; }
 
-        public int Job_Deadline { get; set; }
+
+        //public string AreaofInterist { get; set; }
+
+        public DateTime Job_Deadline { get; set; }
 
         public int  companyid { get; set; }
         public Company? company { get; set; }

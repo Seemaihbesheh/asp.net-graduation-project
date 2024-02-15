@@ -112,6 +112,23 @@ namespace WebApplication3.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("WebApplication3.DBContext.CommentPost", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("commentText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("CommentPosts");
+                });
+
             modelBuilder.Entity("WebApplication3.DBContext.Company", b =>
                 {
                     b.Property<int>("id")
@@ -539,6 +556,43 @@ namespace WebApplication3.Migrations
                     b.ToTable("notificationss");
                 });
 
+            modelBuilder.Entity("WebApplication3.DBContext.postwithoutPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("postwithoutPhotos");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.project", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Decription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("projects");
+                });
+
             modelBuilder.Entity("WebApplication3.DBContext.pushJob", b =>
                 {
                     b.Property<int>("Id")
@@ -554,8 +608,8 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Job_Deadline")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Job_Deadline")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Place")
                         .IsRequired()
@@ -581,6 +635,47 @@ namespace WebApplication3.Migrations
                     b.HasIndex("companyid");
 
                     b.ToTable("pushJobs");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.review", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("ReviewContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("reviews");
+                });
+
+            modelBuilder.Entity("WebApplication3.DBContext.skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("skillone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("skilltwo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("skills");
                 });
 
             modelBuilder.Entity("WebApplication3.DBContext.student", b =>
@@ -661,7 +756,7 @@ namespace WebApplication3.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
@@ -670,6 +765,9 @@ namespace WebApplication3.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("userUs");
                 });

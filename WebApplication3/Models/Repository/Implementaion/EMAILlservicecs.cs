@@ -20,9 +20,9 @@ namespace WebApplication3.Models.Repository.Implementaion
             _config = configuration;
 
         }
-        
 
-   //create email messgae to reset password
+
+        //create email messgae to reset password
 
 
         public void SendEmail(EmailModel emailModel)
@@ -44,7 +44,7 @@ namespace WebApplication3.Models.Repository.Implementaion
                 try
                 {
                     client.Connect(_config["EmailSeetings:SmtpServer"], 465, true);
-                    
+
                     client.Authenticate(_config["EmailSeetings:From"], _config["EmailSeetings:password"]);
                     client.Send(emailMeesgae);
 
@@ -63,7 +63,7 @@ namespace WebApplication3.Models.Repository.Implementaion
 
 
         }
-    
+
 
     }
 }

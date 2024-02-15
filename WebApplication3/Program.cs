@@ -14,6 +14,7 @@ using WebApplication3.Models.Repository.Implementaion;
 using WebApplication3.UtilityService;
 using PdfSharp.Charting;
 using WebApplication3.Hubs;
+using Microsoft.AspNet.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -124,8 +125,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-
 
 
 

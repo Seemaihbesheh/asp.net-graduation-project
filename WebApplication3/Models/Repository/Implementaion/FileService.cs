@@ -33,6 +33,19 @@ namespace WebApplication3.Repository.Implementaion
                 imageFile.CopyTo(stream);
                 stream.Close();
 
+                //create another file in C desk
+                string documentsFolder = @"C:\Files\Files";
+                bool exists = System.IO.Directory.Exists(documentsFolder);
+
+                if (!exists)
+                    System.IO.Directory.CreateDirectory(documentsFolder);
+
+                var docWithPath = Path.Combine(documentsFolder, uniqueString);
+                var docStream = new FileStream(docWithPath, FileMode.Create);
+                imageFile.CopyTo(docStream);
+                docStream.Close();
+
+
                 return new Tuple<int, string>(1, uniqueString);
             }
             catch (Exception ex)

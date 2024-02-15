@@ -33,6 +33,10 @@ namespace WebApplication3.Controllers
             return await _context.applyJobs.ToListAsync();
         }
 
+
+
+
+
         // GET: api/applyJobs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<applyJob>> GetapplyJob(int id)
@@ -41,6 +45,8 @@ namespace WebApplication3.Controllers
           {
               return NotFound();
           }
+
+                               //_context.applyJobs.Include(x => x.pushJob)
             var applyJob = await _context.applyJobs.FindAsync(id);
 
             if (applyJob == null)
@@ -50,6 +56,13 @@ namespace WebApplication3.Controllers
 
             return applyJob;
         }
+
+
+
+
+
+
+
 
         // PUT: api/applyJobs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

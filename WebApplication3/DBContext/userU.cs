@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
+using System.ComponentModel.DataAnnotations.Schema;
 namespace WebApplication3.DBContext
 {
     public class userU
@@ -10,7 +11,8 @@ namespace WebApplication3.DBContext
 
         [Key]
         public int Id { get; set; }
-
+      
+   
         public string UserName { get; set; }
 
         [Column("First_Name", TypeName = "Varchar(Max)")]
@@ -47,9 +49,10 @@ namespace WebApplication3.DBContext
       public ICollection<applyJob>? applyJobs { get; set; }
 
 
-
         [IgnoreDataMember]
         public ICollection<cv>? cvs { get; set; }
+
+      
 
 
       //  [IgnoreDataMember]

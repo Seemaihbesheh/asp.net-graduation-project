@@ -128,7 +128,7 @@ namespace WebApplication3.Controllers
                     Message = " done authenticion login sucesss for comapny!"
                 });
 
-
+                
 
 
             }
@@ -387,9 +387,86 @@ namespace WebApplication3.Controllers
 
         }
 
-        
 
-     
+
+
+
+        [HttpPost("send-accept-email/{email}")]
+        public async Task<IActionResult> SendaAcceptEmail(string email)
+        {
+
+            var useru = await _context.userUs.FirstOrDefaultAsync(a => a.Email == email);
+
+            if (useru is null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = 404,
+                    Message = "email dosen't exit"
+                });
+            }
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+            useru.ResetPasswordToken = emailToken;
+            
+            ///     useru.resetpasswordExpiry = DateTime.Now.AddMinutes(15);
+            string from = _configuration["EmailSeetings:From"];
+
+            var emailModel = new EmailModel(email, "Congrats!!! ", AcceptEmailBody.EmailStringBody(email, emailToken));
+            _emailService.SendEmail(emailModel);
+            _context.Entry(useru).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "email sent sucessssss for accept user "
+
+
+            });
+        }
+
+
+
+
+
+
+        [HttpPost("send-delete-email/{email}")]
+        public async Task<IActionResult> SendaDeleteEmail(string email)
+        {
+            
+            var useru = await _context.userUs.FirstOrDefaultAsync(a => a.Email == email);
+
+            if (useru is null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = 404,
+                    Message = "email dosen't exit"
+                });
+            }
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+            useru.ResetPasswordToken = emailToken;
+
+            ///     useru.resetpasswordExpiry = DateTime.Now.AddMinutes(15);
+            string from = _configuration["EmailSeetings:From"];
+
+            var emailModel = new EmailModel(email, "Congrats!!! ", AcceptEmailBody.EmailStringBody(email, emailToken));
+            _emailService.SendEmail(emailModel);
+            _context.Entry(useru).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "email sent sucessssss for accept user "
+
+
+            });
+        }
+
+
+
+
 
     }
 }

@@ -36,19 +36,6 @@ namespace WebApplication3.Controllers
 
 
 
-        //[HttpPost("Search}")]
-
-        /*  public async Task<IActionResult> Search()
-
-          {
-
-              var data = _context.Users.ToList();
-
-              return Ok(data);
-
-
-          }*/
-
 
         [HttpGet]
 
@@ -149,8 +136,107 @@ namespace WebApplication3.Controllers
             }
         }
 
+        //CommentPost
+
+        [HttpPost("pushCommentPost")]
+        public IActionResult pushCommentPost([FromBody] CommentPost data)
+        {
+            try
+            {
+                // Add the received data to the database
+                _context.CommentPosts.Add(data);
+                _context.SaveChanges();
+
+                // Return a success response
+                return Ok("Data added successfully to  CommentPost done");
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
 
 
+
+
+        [HttpGet("GetpushCommentPost")]
+        public async Task<IActionResult> GetpushCommentPost()
+        {
+            try
+            {
+                var data = _context.CommentPosts.ToList();
+
+                return Ok(data);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+
+
+        [HttpPost("pushContent")]
+        public IActionResult pushContent([FromBody] postwithoutPhoto data)
+        {
+            try
+            {
+                // Add the received data to the database
+                _context.postwithoutPhotos.Add(data);
+                _context.SaveChanges();
+
+                // Return a success response
+                return Ok("Data added successfully to  postwithoutPhoto done");
+            }
+            catch (Exception ex)
+            {
+                // Return an error response
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
+
+
+
+
+        [HttpGet("GetpushContent")]
+        public async Task<IActionResult> GetpushContent()
+        {
+            try
+            {
+                var data = _context.postwithoutPhotos.ToList();
+
+                return Ok(data);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+        [HttpGet("GetAllCom")]
+        public async Task<IActionResult> GetAllCom()
+        {
+            try
+            {
+                var data = _context.Companys.ToList();
+
+                return Ok(data);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 
@@ -207,6 +293,8 @@ namespace WebApplication3.Controllers
 
             return Companyy;
         }
+
+
 
         [HttpGet("getadmminID/{id}")]
         public async Task<ActionResult<Admin>> Getadmiinnnnid(int id)

@@ -24,10 +24,17 @@ namespace ProductMiniApi.Repository.Implementation
                 return false;
             }
         }
+
+
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _context.Product.ToList();
         }
+
+
+
+
 
         public bool AddApplyJob(applyJob model)
         {

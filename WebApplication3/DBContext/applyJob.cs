@@ -27,7 +27,7 @@ namespace WebApplication3.DBContext
         public pushJob? pushJob { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
 
 
